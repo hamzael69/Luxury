@@ -145,17 +145,27 @@ $(handler);
 						</div>
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="menuzord-menu pull-right light" role="navigation">
-								<li class=" dropdown">
-									<a target="_self" href="{{ path('app_login')}}">
-										<span>Login</span>
-									</a>
-								</li>
-								<li class=" dropdown">
-									<a target="_self" href="{{ path('app_register')}}" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
-										<span>Sign Up</span>
-									</a>
+							 {% if app.user %}
 
-								</li>
+                                    <li class="dropdown">
+                                        <a target="_self" href="{{path('app_profile')}}" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
+                                            <span>Profil</span>
+                                        </a>
+                                    </li>
+                                {% else %}
+
+                                    <li class=" dropdown">
+                                        <a target="_self" href="{{ path('app_login') }}">
+                                            <span>Login</span>
+                                        </a>
+                                    </li>
+                                    <li class=" dropdown">
+                                        <a target="_self" href="{{ path('app_register') }}" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
+                                            <span>Sign Up</span>
+                                        </a>
+
+                                    </li>
+                                {% endif %}
 							</ul>
 							<ul class="menuzord-menu pull-right light" role="navigation">
 								<li class="{{ app.current_route is same as('app_home')  ? 'active' : '' }} dropdown">
