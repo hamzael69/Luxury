@@ -203,7 +203,11 @@ $(handler);
 			class="base">
 
 			<!-- Page -->
-			<div class="page"> {% block body %}{% endblock %}
+			<div class="page"> 
+			
+			{% include "partials/flash.html.twig" %}
+			
+			{% block body %}{% endblock %}
 
 
 				</div>

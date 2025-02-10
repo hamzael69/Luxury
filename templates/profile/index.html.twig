@@ -5,6 +5,12 @@
 		select {
 			display: block !important;
 		}
+
+
+		.tp-caption.boxshadow,
+		.boxshadow {
+			box-shadow: none !important;
+		}
 	</style>
 {% endblock %}
 
@@ -52,11 +58,24 @@
 		</div>
 	</section>
 
-	<form method="POST" action="#!" accept-charset="UTF-8" id="candidateForm" role="form" data-parsley-validate="" enctype="multipart/form-data"><input name="_token" type="hidden" value="UYfchy67WuTVzhSstPK1RDZEIfgqpKCcLnLyhf8a">
+
+{{ form_start(form, {
+		'attr': {
+			'id': 'candidateForm',
+			'role': 'form',
+			'data-parsley-validate': '',
+			'enctype': 'multipart/form-data',
+			'accept-charset': 'UTF-8'
+		}
+	}) }}
+	{# <form method="POST" action="#!" accept-charset="UTF-8" id="candidateForm" role="form" data-parsley-validate="" enctype="multipart/form-data"><input name="_token" type="hidden" value="UYfchy67WuTVzhSstPK1RDZEIfgqpKCcLnLyhf8a"> #}
 		<section class="section-padding">
 			<div class="container">
 				<div class="row">
 					<h3 class="text-extrabold">Your personal informations</h3>
+
+					{# gender #}
+
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="input-field">
 							<select id="gender" name="gender">
@@ -69,24 +88,51 @@
 						</div>
 					</div>
 					<div class="clearfix visible-sm"></div>
+
+				
+					{# firstname #}
+
+
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="input-field">
-							<input type="text" class="form-control" name="first_name" id="first_name" value="" required>
-							<label for="first_name">First name</label>
+							{# <input type="text" class="form-control" name="first_name" id="first_name" value="" >
+							<label for="first_name">First name</label> #}
+
+							{{ form_widget(form.firstname) }}
+							{{ form_label(form.firstname) }}
+							{{ form_errors(form.firstname) }}
 						</div>
 					</div>
+
+
+					{# lastname #}
+
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="input-field">
-							<input type="text" class="form-control" name="last_name" id="last_name" value="" required>
-							<label for="last_name">Last name</label>
+							{# <input type="text" class="form-control" name="last_name" id="last_name" value="">
+							<label for="last_name">Last name</label> #}
+
+							{{ form_widget(form.lastname) }}
+							{{ form_label(form.lastname) }}
+							{{ form_errors(form.lastname) }}
+
 						</div>
 					</div>
+
+
+                      {# current_location #}
+
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="input-field">
-							<input required="required" id="current_location" name="current_location" type="text" value="">
+							<input  id="current_location" name="current_location" type="text" value="">
 							<label for="current_location">Current location</label>
 						</div>
 					</div>
+
+
+					{# address #}
+
+
 					<div class="col-xs-12 col-sm-8">
 						<div class="input-field">
 							<input id="address" name="address" type="text" value="">
@@ -94,7 +140,14 @@
 						</div>
 					</div>
 				</div>
+				
+
 				<div class="row">
+
+                   {# photo de profil #}
+
+
+
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="file-field input-field" style="margin-top: 32px;">
 							<div class="btn btn-lg primary waves-effect waves-light">
@@ -117,24 +170,40 @@
 					<div class="col-xs-12 col-sm-6 col-md-8">
 						<div class="row">
 							<div class="col-xs-12 col-sm-6">
+
+							 {# country #}
+
 								<div class="input-field">
 									<input id="country" name="country" type="text" value="">
 									<label for="country">Country</label>
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6">
+
+							{# nationality #}
+
 								<div class="input-field">
 									<input id="nationality" name="nationality" type="text" value="">
 									<label for="nationality">Nationality</label>
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6">
+
+
+							Birthdate
+
+
+
 								<div class="input-field">
 									<input class="datepicker" id="birth_date" name="birth_date" type="text" value="">
 									<label for="birth_date">Birthdate</label>
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6">
+
+							{# birth_place #}
+
+
 								<div class="input-field">
 									<input id="birth_place" name="birth_place" type="text" value="">
 									<label for="birth_place">Birthplace</label>
@@ -198,7 +267,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-12">
 							<div class="input-field">
-								<select id="experience" required="required" name="experience">
+								<select id="experience"  name="experience">
 									<option value="">Choose</option>
 									<option value="3m">0 - 6 month</option>
 									<option value="6m">6 month - 1 year</option>
@@ -227,7 +296,7 @@
 					<h3 class="text-extrabold">Your K-Yachting account</h3>
 					<div class="col-xs-12 col-sm-4">
 						<div class="input-field">
-							<input required="required" id="email" name="email" type="email" value="">
+							<input  id="email" name="email" type="email" value="">
 							<label for="email">Email</label>
 						</div>
 					</div>
@@ -267,5 +336,6 @@
 
 			</div>
 		</section>
-	</form>
+	{# </form> #}
+	{{ form_end(form) }}
 {% endblock %}
