@@ -35,7 +35,60 @@ class CandidateFormType extends AbstractType
                 'label' => 'First name',
             ])
 
+            ->add('currentLocation', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'id' => 'current_location',
+                ],
+                'label' => 'Current location',
+            ])
 
+            ->add('address', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'id' => 'address',
+                ],
+                'label' => 'Address',
+            ])
+
+            ->add('country', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'id' => 'country',
+                ],
+                'label' => 'Country',
+            ])
+
+            ->add('nationality', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'id' => 'nationality',
+                ],
+                'label' => 'Nationality',
+            ])
+
+            ->add('birthplace', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'id' => 'birth_place',
+                ],
+                'label' => 'Birthplace',
+            ])
+
+            ->add('description', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'materialize-textarea',
+                    'id' => 'description',
+                    'cols' => '50',
+                    'rows' => '10',
+                ],
+                'label' => 'Description',
+            ])
+
+
+
+            
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'id',
