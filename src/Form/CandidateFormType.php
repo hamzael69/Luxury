@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Candidate;
+use App\Entity\Gender;
 use App\Entity\User;
 use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -86,6 +87,20 @@ class CandidateFormType extends AbstractType
                 'label' => 'Description',
             ])
 
+
+            ->add('gender', EntityType::class, [
+                'class' => Gender::class,
+                'choice_label' => 'name',
+                'required' => false,
+                'placeholder' => 'Choose an option...',
+                'label' => 'Gender',
+                'attr' => [
+                    'id' => 'gender',
+                ],
+                'label_attr' => [
+                    'class' => 'active',
+                ],
+            ])
 
 
             
