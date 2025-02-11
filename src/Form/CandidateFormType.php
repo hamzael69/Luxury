@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Candidate;
+use App\Entity\Experience;
 use App\Entity\Gender;
+use App\Entity\JobCategory;
 use App\Entity\User;
 use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -96,6 +98,35 @@ class CandidateFormType extends AbstractType
                 'label' => 'Gender',
                 'attr' => [
                     'id' => 'gender',
+                ],
+                'label_attr' => [
+                    'class' => 'active',
+                ],
+            ])
+
+
+            ->add('jobCategory', EntityType::class, [
+                'class' => JobCategory::class,
+                'choice_label' => 'name',
+                'required' => false,
+                'placeholder' => 'Type in or Select job sector you would be interested in...',
+                'label' => 'Jb category',
+                'attr' => [
+                    'id' => 'Job_sector',
+                ],
+                'label_attr' => [
+                    'class' => 'active',
+                ],
+            ])
+
+            ->add('experience', EntityType::class, [
+                'class' => Experience::class,
+                'choice_label' => 'name',
+                'required' => false,
+                'placeholder' => 'Choose...',
+                'label' => 'experience',
+                'attr' => [
+                    'id' => 'experience',
                 ],
                 'label_attr' => [
                     'class' => 'active',
