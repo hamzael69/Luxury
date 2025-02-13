@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Gender;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -14,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractDashboardController
 {
  
- #[Route('/admin')] 
+    #[Route('/admin', name: 'admin')] 
     public function index(): Response
     {
        
@@ -50,6 +51,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('gender', 'fa fa-home' , Gender::class);
+        yield MenuItem::linkToCrud('userChoice', 'fa fa-home' , User::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
