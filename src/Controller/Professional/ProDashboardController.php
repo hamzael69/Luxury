@@ -2,6 +2,7 @@
 
 namespace App\Controller\Professional;
 
+use App\Entity\Professional;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -47,6 +48,10 @@ class ProDashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+
+        yield MenuItem::linkToCrud('Mon Dashboard Pro', 'fa fa-briefcase', Professional::class)
+    ->setController(ProfessionalCrudController::class)
+    ->setPermission('ROLE_PROFESSIONAL');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
