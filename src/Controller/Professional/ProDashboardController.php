@@ -2,6 +2,7 @@
 
 namespace App\Controller\Professional;
 
+use App\Entity\JobOffer;
 use App\Entity\Professional;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -53,5 +54,14 @@ class ProDashboardController extends AbstractDashboardController
     ->setController(ProfessionalCrudController::class)
     ->setPermission('ROLE_PROFESSIONAL');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+
+
+
+        yield MenuItem::subMenu('Offres d\'emploi', 'fas fa-briefcase')
+    ->setPermission('ROLE_PROFESSIONAL')
+    ->setSubItems([
+        MenuItem::linkToCrud('Créer une offre', 'fas fa-plus', JobOffer::class)->setAction('new'),
+        MenuItem::linkToCrud('Mes offres', 'fas fa-list', JobOffer::class),
+    ]);
     }
 }

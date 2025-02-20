@@ -54,7 +54,7 @@ class ProfessionalCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityPermission('ROLE_PROFESSIONAL');
+            ->setEntityPermission('ROLE_PROFESSIONAL')  ;
     }
 
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
