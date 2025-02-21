@@ -2,6 +2,7 @@
 
 namespace App\Controller\Professional;
 
+use App\Entity\Candidature;
 use App\Entity\JobOffer;
 use App\Entity\Professional;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
@@ -62,6 +63,7 @@ class ProDashboardController extends AbstractDashboardController
     ->setSubItems([
         MenuItem::linkToCrud('Créer une offre', 'fas fa-plus', JobOffer::class)->setAction('new'),
         MenuItem::linkToCrud('Mes offres', 'fas fa-list', JobOffer::class),
+        MenuItem::linkToCrud('Mes candidatures', 'fas fa-list', Candidature::class),
     ]);
     }
 }

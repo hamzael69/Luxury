@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\CandidateRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -64,11 +66,26 @@ class Candidate
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
 
+    /**
+     * @var Collection<int, Candidature>
+     */
+    #[ORM\OneToMany(targetEntity: Candidature::class, mappedBy: 'candidate')]
+    private Collection $candidatures;
+
     public function __construct(DateTimeImmutable $createdAt = new DateTimeImmutable(), DateTimeImmutable $updatedAt = new DateTimeImmutable())
     {
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+        $this->candidatures = new ArrayCollection();
+
     }
+
+    // public function __toString(): string
+    // {
+    //     return $this->firstname . ' ' . $this->lastname . " " . $this->user->getEmail() . " " . $this->currentLocation . " " . $this->address;
+
+         
+    // }
 
 
 
@@ -253,6 +270,36 @@ class Candidate
     public function setDeletedAt(\DateTimeImmutable $deletedAt): static
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): static
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures->add($candidature);
+            $candidature->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): static
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getCandidate() === $this) {
+                $candidature->setCandidate(null);
+            }
+        }
 
         return $this;
     }
