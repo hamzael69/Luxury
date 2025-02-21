@@ -11,6 +11,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -18,25 +20,12 @@ use Symfony\Bundle\SecurityBundle\Security;
 class JobOfferCrudController extends AbstractCrudController
 {
 
-    private Security $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
-    }
-
-
-
-
-
-
-
     public static function getEntityFqcn(): string
     {
         return JobOffer::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -46,6 +35,13 @@ class JobOfferCrudController extends AbstractCrudController
             EmailField::new('contactEmail', 'Email de contact'),
             DateTimeField::new('createdAt', 'Date de création')->hideOnForm(),
             AssociationField::new('jobCategory', "Catégorie"),
+            IntegerField::new('salary', 'Salaire'),
+            TextareaField::new('description', 'Description'),
+            TextField::new('contractType', 'Type de contrat'),
+            Textfield::new('location', 'Lieu'),
+            DateTimeField::new('updatedAt', 'Date de mise à jour')->hideOnForm(),
+            DateTimeField::new('deletedAt', 'Date de suppression')->hideOnForm(),
+            DateTimeField::new('startingDate', 'Date de début'),
             AssociationField::new('professional', 'Recruteur')
                 ->setDisabled()
                 ->setRequired(true)
@@ -55,24 +51,34 @@ class JobOfferCrudController extends AbstractCrudController
 
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
-{
-    if (!$entityInstance instanceof JobOffer) {
-        return;
+    {
+        if (!$entityInstance instanceof JobOffer) {
+            return;
+        }
+
+        // Associer l'offre au recruteur connecté
+
+        /** @var User */
+        $user = $this->getUser();
+
+        $professional = $user->getProfessional();
+
+        $entityInstance->setProfessional($professional);
+        $entityInstance->setCreatedAt(new \DateTimeImmutable());
+        $entityInstance->setUpdatedAt(new \DateTimeImmutable());
+
+        parent::persistEntity($entityManager, $entityInstance);
     }
 
-    // Associer l'offre au recruteur connecté
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
 
-    /** @var User */
-    $user = $this->security->getUser();
+        if (!$entityInstance instanceof JobOffer) {
+            return;
+        }
 
-    $professional = $user->getProfessional();
+        $entityInstance->setUpdatedAt(new \DateTimeImmutable());
 
-    $entityInstance->setProfessional($professional);
-    $entityInstance->setCreatedAt(new \DateTimeImmutable());
-
-    parent::persistEntity($entityManager, $entityInstance);
-}
-
-
-
+        parent::persistEntity($entityManager, $entityInstance);
+    }
 }
